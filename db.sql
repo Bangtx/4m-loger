@@ -79,3 +79,10 @@ VALUES
     (null, 'cnc 2', null),
     (null, 'cnc 3', null),
     (null, 'cnc 4', null);
+
+insert into sensor (name, adress, machine_id, position)
+values
+    ('cnc electric current 1', 16, 1, null),
+    ('cnc electric current 2', 17, 1, null),
+    ('cnc electric current 3', 18, 1, null),
+    ('cnc electric current 4', 19, 1, null);
