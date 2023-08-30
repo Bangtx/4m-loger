@@ -2,32 +2,32 @@ import time
 # from noisuytt import noisuy
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from pymodbus.constants import Defaults
+from pymodbus.exceptions import ModbusIOException, ModbusException
 
 Defaults.RetryOnEmpty = True
 Defaults.Timeout = 5
 Defaults.Retries = 5
 
 
-def Get_Data_Modbus():
-    client = ModbusClient(method='rtu', port='COM2', timeout=2, stopbits=1, bytesize=8, parity='N', baudrate=19200)
+def get_data_modbus():
+    client = ModbusClient(method='rtu', port='COM4', timeout=2, stopbits=1, bytesize=8, parity='N', baudrate=57600)
     client.connect()
-    Device1 = client.read_input_registers(address=1000, count=1, unit=1)
-    Device2 = client.read_input_registers(address=1000, count=1, unit=2)
-    Device3 = client.read_input_registers(address=1000, count=1, unit=3)
-    Device4 = client.read_input_registers(address=1000, count=1, unit=4)
-    # Device2 = client.read_input_registers(address=16, count=2, unit=2)
-    Temp1_In_Modbus = Device1.registers[0]
-    Temp2_In_Modbus = Device2.registers[0]
-    Temp3_In_Modbus = Device3.registers[0]
-    Temp4_In_Modbus = Device4.registers[0]
-    print(Device1.__dict__)
-    # print(Device2.__dict__)
-    time.sleep(1)
-    print(float(Temp1_In_Modbus))
-    print(float(Temp2_In_Modbus))
-    print(float(Temp3_In_Modbus))
-    print(float(Temp4_In_Modbus))
+    while True:
+        try:
+            device_1 = client.read_holding_registers(address=16, count=4, unit=1)
+            device_2 = client.read_holding_registers(address=17, count=1, unit=1)
+            device_3 = client.read_holding_registers(address=18, count=1, unit=1)
+            device_4 = client.read_holding_registers(address=19, count=1, unit=1)
+            # print(device_1.registers, device_2.registers, device_3.registers, device_4.registers)
+            print(device_1.registers)
+            time.sleep(1)
+        except (ModbusIOException, ModbusException) as e:
+            print("Modbus communication error:", e)
+        finally:
+            client.close()
+    device_1 = client.read_holding_registers(address=17, count=5, unit=1)
 
 
 
-Get_Data_Modbus()
+
+get_data_modbus()

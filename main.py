@@ -32,6 +32,7 @@ def get_data_modbus(client, unit):
         return read.registers[0] if read.registers else None
     return float(read.registers[0])/10 if read.registers else None
 
+
 def get_sensor():
     sensor_model = DataBase(table_name='sensor')
     sensor_raw_data = sensor_model.get_list()
@@ -45,7 +46,7 @@ def get_sensor():
 
 def init():
     sensors = get_sensor()
-    read_and_save_all_device(sensors)
+    # read_and_save_all_device(sensors)
 
 
 init()

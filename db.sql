@@ -1,24 +1,81 @@
+CREATE TABLE IF NOT EXISTS machine
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    server_id INTEGER,
+    name TEXT,
+    position TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER,
+    modified_at TIMESTAMP,
+    modified_by INTEGER,
+    deleted_at TIMESTAMP,
+    deleted_by INTEGER,
+    active BOOLEAN DEFAULT TRUE
+);
 
-create table sensor (
-	id bigint NOT NULL IDENTITY PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS sensor (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name text,
--- 	host text,
-	port text,
-	unit int,
-	machine_id int default 1,
+    adress int,
+	machine_id int,
 	position text,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER,
+    modified_at TIMESTAMP,
+    modified_by INTEGER,
+    deleted_at TIMESTAMP,
+    deleted_by INTEGER,
+    active BOOLEAN DEFAULT TRUE
 );
 
 
-create table temperature (
-	id bigint NOT NULL IDENTITY PRIMARY KEY,
-	temp float,
-	sensor_id bigint FOREIGN KEY REFERENCES sensor(id),
-	status int,
-	datetime datetime default CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS parameter
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    company_id INTEGER,
+    machine_id INTEGER,
+    temperature_1 REAL,
+    temperature_2 REAL,
+    temperature_3 REAL,
+    temperature_4 REAL,
+    current REAL,
+    date DATE,
+    time TIME,
+    is_running BOOLEAN DEFAULT FALSE,
+    is_problem BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER,
+    modified_at TIMESTAMP,
+    modified_by INTEGER,
+    deleted_at TIMESTAMP,
+    deleted_by INTEGER,
+    active BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE IF NOT EXISTS setting
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    key text,
+    value text,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER,
+    modified_at TIMESTAMP,
+    modified_by INTEGER,
+    deleted_at TIMESTAMP,
+    deleted_by INTEGER,
+    active BOOLEAN DEFAULT TRUE
 );
 
 
-insert into sensor (name, port ,unit)
-values ('sensor 1', '192.168.1.254', 8880, 1),
-       ('sensor 2', '192.168.1.254', 8880, 2)
+insert into setting (key, value)
+values ('method', 'rtu'),
+       ('port', 'COM4'),
+       ('baudrate', '57600');
+
+
+insert into machine (server_id, name, position)
+VALUES
+    (null, 'cnc 1', null),
+    (null, 'cnc 2', null),
+    (null, 'cnc 3', null),
+    (null, 'cnc 4', null);
