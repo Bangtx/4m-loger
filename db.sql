@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS sensor (
 	name text,
     address int,
 	machine_id int,
+	type text,
 	position text,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by INTEGER,
@@ -43,6 +44,7 @@ CREATE TABLE IF NOT EXISTS parameter
     time TIME,
     is_running BOOLEAN DEFAULT FALSE,
     is_problem BOOLEAN DEFAULT FALSE,
+    is_uploaded BOLLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by INTEGER,
     modified_at TIMESTAMP,
@@ -80,9 +82,9 @@ VALUES
     (null, 'cnc 3', null),
     (null, 'cnc 4', null);
 
-insert into sensor (name, adress, machine_id, position)
+insert into sensor (name, adress, machine_id, position, type)
 values
-    ('cnc electric current 1', 16, 1, null),
-    ('cnc electric current 2', 17, 1, null),
-    ('cnc electric current 3', 18, 1, null),
-    ('cnc electric current 4', 19, 1, null);
+    ('cnc electric current 1', 16, 1, null, 'current'),
+    ('cnc electric current 2', 17, 1, null, 'current'),
+    ('cnc electric current 3', 18, 1, null, 'current'),
+    ('cnc electric current 4', 19, 1, null, 'current');

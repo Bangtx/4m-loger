@@ -9,6 +9,7 @@ class Sensor(BaseModel):
     address = CharField()
     machine = ForeignKeyField(Machine)
     position = CharField()
+    type = CharField()
 
     @classmethod
     def handle_select(cls, **kwargs):
@@ -17,7 +18,8 @@ class Sensor(BaseModel):
                 cls.id,
                 cls.address,
                 cls.machine,
-                cls.position
+                cls.position,
+                cls.type
             ).join(
                 Machine, on=Machine.id == cls.machine
             ).where(

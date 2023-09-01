@@ -21,5 +21,4 @@ class PeeweeConnectionState(peewee._ConnectionState):
 
 db = peewee.SqliteDatabase(DATABASE_NAME, check_same_thread=False)
 
-print('db')
 db._state = PeeweeConnectionState()
