@@ -2,6 +2,7 @@ from models.base import BaseModel
 from peewee import ForeignKeyField, FloatField, DateField, TimeField, BooleanField, fn, IntegerField
 from models.machine import Machine
 from datetime import date, datetime
+from models.setting import Setting
 
 
 class Parameter(BaseModel):
@@ -52,6 +53,9 @@ class Parameter(BaseModel):
 
     @classmethod
     def insert_sensor_values(cls, sensors):
+        setting = Setting.get_list()
+        company = next(filter(lambda x: x['key'] == 'company', setting))
+
         parameters = []
         for sensor in sensors:
             now = datetime.now()
@@ -62,6 +66,7 @@ class Parameter(BaseModel):
                 continue
 
             new_param = {
+                'company_id': company['value'],
                 'machine': sensor['machine'],
                 'current': sensor['value'],
                 'date': current_date,
@@ -71,3 +76,25 @@ class Parameter(BaseModel):
 
         if parameters:
             Parameter.insert_many(parameters).execute()
+
+    @classmethod
+    def upload_to_server(cls):
+        # get all data have not been uploaded yet
+        old_params = Parameter.get_list(uploaded=False)
+        body = cls.__to_body(old_params)
+        print(body)
+
+    @classmethod
+    def __to_body(cls, params):
+        result = []
+        for param in params:
+            result.append({
+                'company': param['company_id'],
+                'machine': param['machine'],
+                'current': param['current'],
+                'date': str(param['date']),
+                'time': str(param['time']),
+                'is_running': param['is_running'],
+                'is_problem': param['is_problem']
+            })
+        return result

@@ -21,6 +21,4 @@ for sensor in sensors:
 Parameter.insert_sensor_values(sensors)
 
 # upload to server
-# get all data have not been uploaded yet
-old_params = Parameter.get_list(uploaded=False)
-print(old_params)
+Parameter.upload_to_server()

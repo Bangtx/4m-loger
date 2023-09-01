@@ -72,7 +72,8 @@ CREATE TABLE IF NOT EXISTS setting
 insert into setting (key, value)
 values ('method', 'rtu'),
        ('port', 'COM4'),
-       ('baudrate', '57600');
+       ('baudrate', '57600')
+       ('company', '2');
 
 
 insert into machine (server_id, name, position)
