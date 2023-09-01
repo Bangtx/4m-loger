@@ -12,13 +12,7 @@ Defaults.Retries = 5
 class Modbus:
     def __init__(self, method='rtu', port='COM4', baudrate=57600):
         self.client = ModbusClient(
-            method=method,
-            port=port,
-            timeout=2,
-            stopbits=1,
-            bytesize=8,
-            parity='N',
-            baudrat=baudrate
+            method=method, port=port, timeout=2, stopbits=1, bytesize=8, parity='N', baudrate=baudrate
         )
 
     def get_data(self, address, count, unit=1):

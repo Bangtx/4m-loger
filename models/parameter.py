@@ -83,7 +83,7 @@ class Parameter(BaseModel):
         # get all data have not been uploaded yet
         old_params = Parameter.get_list(uploaded=False)
         body = cls.__to_body(old_params)
-        print(body)
+        # print(body)
 
         login()
 
