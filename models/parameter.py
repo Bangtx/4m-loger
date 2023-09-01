@@ -3,6 +3,7 @@ from peewee import ForeignKeyField, FloatField, DateField, TimeField, BooleanFie
 from models.machine import Machine
 from datetime import date, datetime
 from models.setting import Setting
+from utils.common import login
 
 
 class Parameter(BaseModel):
@@ -83,6 +84,8 @@ class Parameter(BaseModel):
         old_params = Parameter.get_list(uploaded=False)
         body = cls.__to_body(old_params)
         print(body)
+
+        login()
 
     @classmethod
     def __to_body(cls, params):
