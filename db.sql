@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS machine
 CREATE TABLE IF NOT EXISTS sensor (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name text,
-    adress int,
+    address int,
 	machine_id int,
 	position text,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
