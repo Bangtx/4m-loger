@@ -75,7 +75,8 @@ values ('method', 'rtu'),
        ('baudrate', '57600'),
        ('company', '2'),
        ('code', 'NghiaTT'),
-       ('password', 'MTIzNDU2Nzg=');
+       ('password', 'MTIzNDU2Nzg='),
+       ('api_url', 'http://103.176.179.65:1001');
 
 
 insert into machine (server_id, name, position)

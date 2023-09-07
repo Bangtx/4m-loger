@@ -1,9 +1,11 @@
+import requests
 from models.base import BaseModel
 from peewee import ForeignKeyField, FloatField, DateField, TimeField, BooleanField, fn, IntegerField
 from models.machine import Machine
 from datetime import date, datetime
 from models.setting import Setting
-from utils.common import login
+from utils.common import login, to_current
+from json import dumps
 
 
 class Parameter(BaseModel):
@@ -69,7 +71,7 @@ class Parameter(BaseModel):
             new_param = {
                 'company_id': company['value'],
                 'machine': sensor['machine'],
-                'current': sensor['value'],
+                'current': to_current(sensor['value']),
                 'date': current_date,
                 'time': current_time
             }
@@ -81,11 +83,22 @@ class Parameter(BaseModel):
     @classmethod
     def upload_to_server(cls):
         # get all data have not been uploaded yet
-        old_params = Parameter.get_list(uploaded=False)
+        old_params = Parameter.get_list(is_uploaded=False)
         body = cls.__to_body(old_params)
-        # print(body)
 
-        login()
+        token = login()
+
+        if token:
+            api_url = Setting.find_by_key('api_url')
+            # api_url = 'http://172.17.0.1:1001'
+
+            response = requests.post(
+                f'{api_url}/parameter',
+                data=dumps(body),
+                headers={"Authorization": f"Bearer {token}"}
+            )
+
+            cls.update(is_uploaded=True).where(cls.is_uploaded == False).execute()
 
     @classmethod
     def __to_body(cls, params):
