@@ -34,7 +34,7 @@ def to_current(raw_value):
     max_value = 20000
     min_current = 0
     max_current = 50
-    if min_value <= raw_value <= max_value:
+    if raw_value and min_value <= raw_value <= max_value:
         rate = (raw_value - min_value) / (max_value - min_value)
         return (max_current - min_current) * rate
 
