@@ -97,7 +97,7 @@ class Parameter(BaseModel):
                 data=dumps(body),
                 headers={"Authorization": f"Bearer {token}"}
             )
-
+            # print(response.json())
             cls.update(is_uploaded=True).where(cls.is_uploaded == False).execute()
 
     @classmethod
