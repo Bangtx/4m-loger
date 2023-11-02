@@ -26,4 +26,4 @@ while True:
 
     # upload to server
     Parameter.upload_to_server()
-    time.sleep(300)
+    time.sleep(10)

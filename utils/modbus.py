@@ -19,6 +19,7 @@ class Modbus:
         self.client.connect()
         try:
             device = self.client.read_holding_registers(address=address, count=count, unit=unit)
+            print(address, device)
             return device.registers
         except (ModbusIOException, ModbusException) as e:
             return [None] * count
