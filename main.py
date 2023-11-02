@@ -19,6 +19,7 @@ while True:
     connect_sensor = Modbus(method=method['value'], port=port['value'], baudrate=int(baud_rate['value']))
     for sensor in sensors:
         sensor['value'] = connect_sensor.get_data(int(sensor['address']), 1)[0]
+        print(sensor)
 
     # insert into parameter table
     Parameter.insert_sensor_values(sensors)
