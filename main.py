@@ -1,3 +1,4 @@
+import time
 from models.machine import Machine
 from models.sensor import Sensor
 from models.setting import Setting
@@ -24,3 +25,4 @@ while True:
 
     # upload to server
     Parameter.upload_to_server()
+    time.sleep(300)
