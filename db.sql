@@ -81,14 +81,14 @@ values ('method', 'rtu'),
 
 insert into machine (server_id, name, position)
 VALUES
-    (null, 'cnc 1', null),
-    (null, 'cnc 2', null),
-    (null, 'cnc 3', null),
-    (null, 'cnc 4', null);
+    (2, 'cnc 1', null),
+    (3, 'cnc 2', null),
+    (4, 'cnc 3', null),
+    (5, 'cnc 4', null);
 
 insert into sensor (name, adress, machine_id, position, type)
 values
-    ('cnc electric current 1', 16, 2, null, 'current'),
-    ('cnc electric current 2', 17, 3, null, 'current'),
-    ('cnc electric current 3', 18, 4, null, 'current'),
-    ('cnc electric current 4', 19, 5, null, 'current');
+    ('cnc electric current 1', 16, 1, null, 'current'),
+    ('cnc electric current 2', 17, 2, null, 'current'),
+    ('cnc electric current 3', 18, 3, null, 'current'),
+    ('cnc electric current 4', 19, 4, null, 'current');
