@@ -103,10 +103,15 @@ class Parameter(BaseModel):
     @classmethod
     def __to_body(cls, params):
         result = []
+
+        machines = Machine.get_list()
+
         for param in params:
+            machine = list(filter(lambda x: x['id'] == param['machine'], machines))
+            machine = machine[0]
             result.append({
                 'company': param['company_id'],
-                'machine': param['machine'],
+                'machine': machine['server_id'],
                 'current': param['current'],
                 'date': str(param['date']),
                 'time': str(param['time']),
